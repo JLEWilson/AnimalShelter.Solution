@@ -10,7 +10,7 @@ namespace AnimalShelter.AddControllers
   [Produces("application/json")]
   [Route("api/[controller]")]
   [ApiVersion("1.0")]
-  [ApiVersion("2.0")]
+  [ApiVersion("1.1")]
   [ApiController]
   public class AnimalsController : ControllerBase
   {
@@ -27,7 +27,7 @@ namespace AnimalShelter.AddControllers
     {
       return await _db.Animals.ToListAsync();
     }
-    [MapToApiVersion("2.0")]
+    [MapToApiVersion("1.1")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Animal>>> Get2(string species, string gender, string name, int age = 0)
     {
