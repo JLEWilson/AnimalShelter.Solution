@@ -10,7 +10,7 @@ namespace AnimalShelter.AddControllers
   [Produces("application/json")]
   [Route("api/[controller]")]
   [ApiVersion("1.0")]
-  [ApiVersion("1.1")]
+  [ApiVersion("2.0")]
   [ApiController]
   public class AnimalsController : ControllerBase
   {
@@ -23,13 +23,13 @@ namespace AnimalShelter.AddControllers
 
     [MapToApiVersion("1.0")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string gender, string name)
+    public async Task<ActionResult<IEnumerable<Animal>>> Get()
     {
       return await _db.Animals.ToListAsync();
     }
-    [MapToApiVersion("1.1")]
+    [MapToApiVersion("2.0")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get2(string species, string gender, string name, int age = 0)
+    public async Task<ActionResult<IEnumerable<Animal>>> Get2(string species, string gender, string name)
     {
       var query = _db.Animals.AsQueryable();
 
@@ -47,11 +47,7 @@ namespace AnimalShelter.AddControllers
       {
         query = query.Where(entry => entry.Name == name);
       }
-
-      if(age != 0)
-      {
-        query = query.Where(entry => entry.Age == age);
-      }
+      query = query.OrderBy(animal => animal.Name);
       return await query.ToListAsync();
     }
     [HttpPost]
