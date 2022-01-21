@@ -8,7 +8,7 @@ using System.Linq;
 namespace AnimalShelter.AddControllers
 {
   [Produces("application/json")]
-  [Route("api/[controller]")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
   [ApiVersion("2.0")]
   [ApiController]
@@ -43,7 +43,7 @@ namespace AnimalShelter.AddControllers
         query = query.Where(entry => entry.Gender == gender);
       }
 
-      if(gender != null)
+      if(name != null)
       {
         query = query.Where(entry => entry.Name == name);
       }
