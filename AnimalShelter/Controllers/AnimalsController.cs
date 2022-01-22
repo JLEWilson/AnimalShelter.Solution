@@ -29,7 +29,7 @@ namespace AnimalShelter.AddControllers
     }
     [MapToApiVersion("2.0")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get2(string species, string gender, string name)
+    public async Task<ActionResult<IEnumerable<Animal>>> Get2(string species, string gender, string name, int age = -1)
     {
       var query = _db.Animals.AsQueryable();
 
@@ -47,6 +47,12 @@ namespace AnimalShelter.AddControllers
       {
         query = query.Where(entry => entry.Name == name);
       }
+      
+      if(age != -1)
+      {
+        query = query.Where(entry => entry.Age == age);
+      }
+
       query = query.OrderBy(animal => animal.Name);
       return await query.ToListAsync();
     }
